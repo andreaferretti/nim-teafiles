@@ -31,5 +31,5 @@ from the [TeaFiles specification](http://discretelogics.com/resources/teafilespe
 Credits
 -------
 
-The TeaFiles format was originally designed and developed by [DiscreteLogics](http://discretelogics.com)
+The TeaFiles format was originally designed and developed by [DiscreteLogics](http://discretelogics.com).
 TeaFiles is a copyright by DiscreteLogics.
