@@ -17,7 +17,7 @@ Documentation
 There is not much in terms of documentation yet, but you can have a look at
 
 * the [tests usage](https://github.com/unicredit/nim-teafiles/blob/master/test.nim)
-* the [API docs](http://unicredit.github.io/nim-teafiles/)
+* the [API docs](http://unicredit.github.io/nim-teafiles/api.html)
 * the [original TeaFiles spec](http://discretelogics.com/resources/teafilespec/)
 
 License
