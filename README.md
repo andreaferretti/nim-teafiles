@@ -1,6 +1,8 @@
 Nim TeaFiles
 ============
 
+[![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://github.com/yglukhov/nimble-tag)
+
 This is a Nim library to read and write [TeaFiles](http://discretelogics.com/teafiles/).
 
 TeaFiles provide fast read/write access to time series data from any software
