@@ -125,7 +125,7 @@ type
 template advance(p: pointer, b: int) =
   p = cast[pointer](cast[int](p) + b)
 
-template next*(p: pointer, T: typedesc): expr =
+template next*(p: pointer, T: typedesc): untyped =
   let x = cast[ptr T](p)[]
   when T is Section or T is ValueType or T is FieldType:
     advance(p, 4)
@@ -133,7 +133,7 @@ template next*(p: pointer, T: typedesc): expr =
     advance(p, sizeof(T))
   x
 
-template nextString(p: pointer): expr =
+template nextString(p: pointer): untyped =
   let
     length = p.next(int32)
     bytes = cast[ptr UncheckedArray[char]](p)
@@ -546,25 +546,25 @@ proc `[]`*(d: Dyn, key: string): Number =
     of DoesNotExist:
       assert false
     of Int8:
-      result = Number(kind: tp, int8value: cast[ptr int8](p)[])
+      result = Number(kind: Int8, int8value: cast[ptr int8](p)[])
     of Int16:
-      result = Number(kind: tp, int16value: cast[ptr int16](p)[])
+      result = Number(kind: Int16, int16value: cast[ptr int16](p)[])
     of Int32:
-      result = Number(kind: tp, int32value: cast[ptr int32](p)[])
+      result = Number(kind: Int32, int32value: cast[ptr int32](p)[])
     of Int64:
-      result = Number(kind: tp, int64value: cast[ptr int64](p)[])
+      result = Number(kind: Int64, int64value: cast[ptr int64](p)[])
     of UInt8:
-      result = Number(kind: tp, uint8value: cast[ptr uint8](p)[])
+      result = Number(kind: UInt8, uint8value: cast[ptr uint8](p)[])
     of UInt16:
-      result = Number(kind: tp, uint16value: cast[ptr uint16](p)[])
+      result = Number(kind: UInt16, uint16value: cast[ptr uint16](p)[])
     of UInt32:
-      result = Number(kind: tp, uint32value: cast[ptr uint32](p)[])
+      result = Number(kind: UInt32, uint32value: cast[ptr uint32](p)[])
     of UInt64:
-      result = Number(kind: tp, uint64value: cast[ptr uint64](p)[])
+      result = Number(kind: UInt64, uint64value: cast[ptr uint64](p)[])
     of Float:
-      result = Number(kind: tp, float32value: cast[ptr float32](p)[])
+      result = Number(kind: Float, float32value: cast[ptr float32](p)[])
     of Double:
-      result = Number(kind: tp, float64value: cast[ptr float64](p)[])
+      result = Number(kind: Double, float64value: cast[ptr float64](p)[])
 
 proc `[]`*(d: Dyn, key: string, T: typedesc): T =
   var
