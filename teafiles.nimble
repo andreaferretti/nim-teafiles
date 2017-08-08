@@ -32,8 +32,8 @@ task test, "run tests":
   --linetrace: on
   --debuginfo
   --run
-  setCommand "c", "test"
+  setCommand "c", "test.nim"
 
 task gendoc, "generate documentation":
   --docSeeSrcUrl: https://github.com/unicredit/nim-teafiles/blob/master
-  setCommand "doc2", "teafiles"
+  setCommand "doc2", "teafiles.nim"
