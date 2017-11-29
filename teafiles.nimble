@@ -1,4 +1,4 @@
-# Copyright 2016 UniCredit S.p.A.
+# Copyright 2017 UniCredit S.p.A.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 mode = ScriptMode.Verbose
 
 packageName   = "teafiles"
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "Andrea Ferretti"
 description   = "TeaFiles for Nim"
 license       = "Apache2"

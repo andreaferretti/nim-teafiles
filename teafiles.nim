@@ -141,7 +141,7 @@ template nextString(p: pointer): auto =
   advance(p, sizeof(int32))
   let bytes = cast[ptr UncheckedArray[char]](p)
   var s = newString(length)
-  for i in 0 .. < length:
+  for i in 0'i64 ..< length:
     s[i.int] = bytes[i.int]
   advance(p, length.int)
   s
@@ -169,7 +169,7 @@ proc readTimeSection(tea: var AnyTeaFile, cursor: pointer) =
   tea.time.ticksPerDay = c.next(int64)
   let L = c.next(int32)
   tea.time.timeFields = newSeq[int32](L)
-  for i in 0 .. < L:
+  for i in 0 ..< L:
     tea.time.timeFields[i] = c.next(int32)
 
 proc readNameValueSection(tea: var AnyTeaFile, cursor: pointer) =
@@ -198,7 +198,7 @@ proc readItemSection(tea: var AnyTeaFile, cursor: pointer) =
   let length = c.next(int32)
   # assert length >= 1
   tea.items.fields = newSeq[Field](length)
-  for i in 0 .. < length:
+  for i in 0 ..< length:
     tea.items.fields[i] = Field(
       tp: c.next(FieldType),
       offset: c.next(int32),
@@ -264,7 +264,7 @@ proc lengthAndPadding(meta: Meta): tuple[length: int64, padding: int] =
     length = (64 + meta.content.len + meta.time.len +
       meta.namevalues.len + meta.items.len).int64
     rem = length mod 8
-    padding = if rem == 0: 0 else: 8 - rem
+    padding = if rem == 0: 0 else: 8 - rem.int
   return (length, padding)
 
 proc len(meta: Meta): int64 =
@@ -398,22 +398,22 @@ proc append*[T](tea: var WritableTeaFile, val: T) =
 ### ITERATORS ###
 
 iterator items*[T](tea: TeaFile[T]): T {.inline.} =
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     yield tea.data[i]
 
 iterator items*(tea: DynTeaFile): Dyn {.inline.} =
   var p = cast[pointer](tea.data)
-  for _ in 0 .. < len(tea):
+  for _ in 0'i64 ..< len(tea):
     yield Dyn(layout: tea.items.fields, position: cast[ptr UncheckedArray[byte]](p))
     advance(p, tea.items.size)
 
 iterator pairs*[T](tea: TeaFile[T]): tuple[key: int, val: T] {.inline.} =
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     yield (i, tea.data[i])
 
 iterator pairs*(tea: DynTeaFile): tuple[key: int64, val: Dyn] {.inline.} =
   var p = cast[pointer](tea.data)
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     yield (i, Dyn(layout: tea.items.fields, position: cast[ptr UncheckedArray[byte]](p)))
     advance(p, tea.items.size)
 
@@ -442,7 +442,7 @@ iterator col*(tea: AnyTeaFile, key: string, T: typedesc): T =
   when T is float64: assert tp == Double
   var p = cast[pointer](tea.data)
   advance(p, offset)
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     yield cast[ptr T](p)[]
     advance(p, tea.items.size)
 
@@ -461,7 +461,7 @@ iterator intcol*(tea: AnyTeaFile, key: string): int =
     assert false
   var p = cast[pointer](tea.data)
   advance(p, offset)
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     case tp:
       of DoesNotExist:
         assert false
@@ -502,7 +502,7 @@ iterator floatcol*(tea: AnyTeaFile, key: string): float =
     assert false
   var p = cast[pointer](tea.data)
   advance(p, offset)
-  for i in 0 .. < len(tea):
+  for i in 0'i64 ..< len(tea):
     case tp:
       of DoesNotExist:
         assert false
@@ -676,7 +676,7 @@ proc printExcerpt*(tea: AnyTeaFile, maxItems: int = 5): string =
   result = "\nLength: " & $(length) & "\n"
   result &= "\nExcerpt:\n"
   result &= "--------\n"
-  for i in 0 .. < min(maxItems, length):
+  for i in 0'i64 ..< min(maxItems, length):
     result &= $(tea[i.int]) & "\n"
   if length > maxItems:
     result &= "...\n"
