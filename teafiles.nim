@@ -638,7 +638,7 @@ proc `$`(field: Field): string =
 
 proc printDescription*(tea: AnyTeaFile): string =
   result = ""
-  if not tea.content.description.isNil:
+  if tea.content.description != "":
     result &= "\nDescription:\n"
     result &= "------------\n"
     result &= tea.content.description & "\n"

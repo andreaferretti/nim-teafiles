@@ -15,13 +15,13 @@
 mode = ScriptMode.Verbose
 
 packageName   = "teafiles"
-version       = "0.1.2"
+version       = "0.1.3"
 author        = "Andrea Ferretti"
 description   = "TeaFiles for Nim"
 license       = "Apache2"
 skipFiles     = @["test.nim", "acme.tea"]
 
-requires "nim >= 0.11.2"
+requires "nim >= 0.18.0"
 
 --forceBuild
 
