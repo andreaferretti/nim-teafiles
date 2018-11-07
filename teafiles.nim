@@ -43,7 +43,6 @@ type
     floatType =  2
     stringType = 3
     uuidType =   4
-  UncheckedArray{.unchecked.}[T] = array[1, T]
   Field = object
     tp: FieldType
     offset: int32
