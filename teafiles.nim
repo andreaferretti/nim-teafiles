@@ -43,29 +43,29 @@ type
     floatType =  2
     stringType = 3
     uuidType =   4
-  Field = object
-    tp: FieldType
-    offset: int32
-    name: string
+  Field* = object
+    tp*: FieldType
+    offset*: int32
+    name*: string
   Header = object
     itemStart: int64
     itemEnd: int64
     sectionCount: int64
-  ContentSection = object
-    description: string
-  TimeSection = object
-    epoch: int64
-    ticksPerDay: int64
-    timeFields: seq[int32]
-  NameValueSection = object
-    ints: Table[string, int32]
-    floats: Table[string, float64]
-    strings: Table[string, string]
-    uuids: Table[string, Uuid]
-  ItemSection = object
-    size: int32
-    name: string
-    fields: seq[Field]
+  ContentSection* = object
+    description*: string
+  TimeSection* = object
+    epoch*: int64
+    ticksPerDay*: int64
+    timeFields*: seq[int32]
+  NameValueSection* = object
+    ints*: Table[string, int32]
+    floats*: Table[string, float64]
+    strings*: Table[string, string]
+    uuids*: Table[string, Uuid]
+  ItemSection* = object
+    size*: int32
+    name*: string
+    fields*: seq[Field]
   TeaFile*[T] = object
     header: Header
     content: ContentSection
@@ -86,7 +86,7 @@ type
     data: ptr[UncheckedArray[byte]]
     underlying: MemFile
   AnyTeaFile = TeaFile or DynTeaFile
-  Number = object
+  Number* = object
     case kind*: FieldType
     of DoesNotExist:
       discard
@@ -110,11 +110,11 @@ type
       float32value*: float32
     of Double:
       float64value*: float64
-  Meta = object
-    content: ContentSection
-    time: TimeSection
-    namevalues: NameValueSection
-    items: ItemSection
+  Meta* = object
+    content*: ContentSection
+    time*: TimeSection
+    namevalues*: NameValueSection
+    items*: ItemSection
   WritableTeaFile = object
     meta: Meta
     stream: Stream
